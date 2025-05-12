@@ -11,6 +11,7 @@ const ResetPassword = () => {
   const [formData, setFormData] = useState({
     newPassword: "",
     confirmPassword: "",
+    email : ""
   });
 
   const handleChanges = (e) => {
@@ -22,15 +23,15 @@ const ResetPassword = () => {
   };
 
   const handleReset = async () => {
-    const { newPassword, confirmPassword } = formData;
+    const { newPassword, confirmPassword,email } = formData;
     if (newPassword !== confirmPassword) {
       toast.error("New Password and Confirm Password do not match");
       return;
     }
     try {
       const response = await axios.post(
-        `http://localhost:3000/api/auth/reset-password/${token}`,
-        { newPassword, confirmPassword }
+        `http://localhost:3000/api/auth/reset-password`,
+        { newPassword, confirmPassword,email }
       );
       toast.success(response.data.message);
       navigate("/login");
@@ -42,6 +43,15 @@ const ResetPassword = () => {
   return (
     <div className="flex flex-col gap-4 items-center justify-center mt-20 shadow py-8 px-6 bg-white max-w-md mx-auto rounded">
       <h1 className="text-2xl font-bold mb-2">Reset Password</h1>
+      <input
+        type="email"
+        name="email"
+        value={formData.email}
+        onChange={handleChanges}
+        placeholder="Enter email"
+        className="border border-gray-300 rounded-md px-2 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+        required
+      />
       <PasswordInput
         name="newPassword"
         value={formData.newPassword}

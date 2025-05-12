@@ -14,11 +14,12 @@ const CartPage = () => {
     getCartItems();
   }, []);
 
-  const handleCheckboxChange = (itemId) => {
+  const handleCheckBoxChange = (itemId) => {
     setSelectedItems((prev) =>
       prev.includes(itemId) ? prev.filter((id) => id !== itemId) : [...prev, itemId]
     );
   };
+  console.log(selectedItems);
 
   const totalPrice = cartItem
     ?.filter((item) => selectedItems.includes(item._id))
@@ -50,7 +51,7 @@ const CartPage = () => {
                   <input
                     type="checkbox"
                     checked={selectedItems.includes(item._id)}
-                    onChange={() => handleCheckboxChange(item._id)}
+                    onChange={() => handleCheckBoxChange(item._id)}
                     className="form-checkbox h-5 w-5 text-yellow-500"
                   />
                   <img

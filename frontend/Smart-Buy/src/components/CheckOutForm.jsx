@@ -64,7 +64,7 @@
     const handleSubmit = async (e) => {
       e.preventDefault();
 
-      const itemsToCheckout = selectedItems.length > 0 ? selectedItems : cartItem;
+      const itemsToCheckout = selectedItems.length > 0 ? cartItem.filter(item=>selectedItems.includes(item._id)): cartItem;
 
       if (itemsToCheckout.length === 0) {
         toast.error("Your cart is empty");
@@ -100,29 +100,12 @@
       }
     };
     
-    const calculatedTotal = selectedItems.length > 0
-  ? selectedItems.reduce((acc, item) => acc + ((item.price || 0) * (item.quantity || 0)), 0)
-  : totalAmount;
-      console.log(calculatedTotal)
-
     // Merge selectedItems with cartItem to ensure price and quantity are present
     const itemsToDisplay = selectedItems.length > 0
-  ? selectedItems.map(selItem => {
-      const matchedCartItem = cartItem.find(ci => ci._id === selItem._id || ci._id === selItem.productId);
-      const price = selItem.price !== undefined ? selItem.price : (matchedCartItem?.price !== undefined ? matchedCartItem.price : 0);
-      const quantity = selItem.quantity || matchedCartItem?.quantity || 1;
-      const name = selItem.name || matchedCartItem?.name || "Product";
-
-      if (!price) console.warn("Missing price for item:", selItem);
-      if (!quantity) console.warn("Missing quantity for item:", selItem);
-
-      return { ...selItem, price, quantity, name };
-    })
+  ? cartItem.filter(item => selectedItems.includes(item._id))
   : cartItem;
-      console.log("selectedItems", selectedItems);
-  console.log("cartItem", cartItem);
 
-
+    const calculatedTotal = itemsToDisplay.reduce((acc,item)=>acc + ((item.price || 0) * (item.quantity || 0)),0);
     return (
       <div className="container mx-auto max-w-3xl p-6 bg-white rounded-lg shadow-md mt-8">
         <h2 className="font-bold text-2xl text-center mb-4">CheckOut</h2>

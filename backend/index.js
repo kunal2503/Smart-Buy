@@ -8,6 +8,7 @@ const productRoutes = require("./routes/productRoute");
 const orderRoutes = require("./routes/orderRoutes");
 const profileRoutes = require("./routes/profileRoutes");
 const { default: orderModel } = require('./models/orderModel');
+const morgan = require("morgan");
 
 
 
@@ -28,9 +29,16 @@ app.use("/api/products", productRoutes)
 app.use("/api/orders",orderRoutes )
 app.use("/api/users/profile", profileRoutes);
 
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ message: "Internal Server Error" });
+});
+app.use(morgan("combined"))
+
 // Connect MongoDB
+// "mongodb://localhost:27017/smart_Buy"
 // process.env.MONGO_URL
-mongoose.connect("mongodb://localhost:27017/smart_Buy", {
+mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })

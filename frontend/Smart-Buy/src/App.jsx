@@ -20,6 +20,7 @@ import ForgotPasswordRequest from "./pages/ForgotPasswordRequest";
 import ResetPassword from "./pages/ResetPassword";
 import ProfileInfo from "./pages/profileInfo";
 import ChatBot from "./pages/ChatBot"
+import OrderDetails from "./pages/OrderDetails"
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/profile-info" element={<ProfileInfo />} />
           <Route path="/chat-With-us" element={<ChatBot />} />
+          <Route path="/chat-With-us" element={<OrderDetails />} />
 
         </Routes>
         <Footer/>

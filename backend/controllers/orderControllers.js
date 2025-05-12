@@ -1,4 +1,5 @@
 const Order = require("../models/orderModel");
+const User = require("../models/user");
 
 /**
  * Controller to place a new order.
@@ -42,16 +43,16 @@ exports.placeOrder = async (req, res) => {
       return res.status(404).json({ error: "User not found." });
     }
 
-    // Create the order
+    // Create the order using shippingInfo from request body
     const newOrder = new Order({
       user: userId,
       shippingInfo: {
-        address: user.address.address,
-        city: user.address.city,
-        state: user.address.state,
-        zip: user.address.zip,
-        country: user.address.country,
-        phoneNo: user.address.phoneNo,
+        address: shippingInfo.address,
+        city: shippingInfo.city,
+        state: shippingInfo.state,
+        zip: shippingInfo.zip,
+        country: shippingInfo.country,
+        phoneNo: shippingInfo.phoneNo || "", // optional phoneNo
       },
       paymentMethod,
       cartItems,
@@ -60,10 +61,10 @@ exports.placeOrder = async (req, res) => {
 
     await newOrder.save();
 
-    // Remove only ordered items from the user's cart
+    // Remove only ordered items from the user's cart using productId comparison
     if (cartItems?.length) {
       user.cart = user.cart.filter(
-        (cartItem) => !cartItems.some((orderedItem) => String(orderedItem.product) === String(cartItem.product))
+        (cartItem) => !cartItems.some((orderedItem) => String(orderedItem.productId) === String(cartItem.productId))
       );
       await user.save();
     }

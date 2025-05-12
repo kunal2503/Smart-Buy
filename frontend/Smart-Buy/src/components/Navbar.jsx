@@ -49,21 +49,39 @@ const Navbar = () => {
           </Link>
         </div>
         <div>
-          <Link to="/cart" className="flex gap-1 text-white">
+          { token ?(
+            <Link to="/cart" className="flex gap-1 text-white">
             {totalQuantity > 0 && (
               <motion.span
-                key={totalQuantity}
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className="badge text-amber-600 absolute top-1 right-41 font-bold"
+              key={totalQuantity}
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className="badge text-amber-600 absolute top-1 right-60 font-bold"
               >
                 {totalQuantity}
               </motion.span>
             )}
             <FaShoppingCart className="size-6 text-white" />
             <span className="font-medium text-white"> Cart</span>
-          </Link>
+          </Link>) :(
+             <Link to="/cart" className="flex gap-1 text-white">
+             {totalQuantity > 0 && (
+               <motion.span
+               key={totalQuantity}
+               initial={{ scale: 0 }}
+               animate={{ scale: 1 }}
+               transition={{ type: "spring", stiffness: 300, damping: 20 }}
+               className="badge text-amber-600 absolute top-1 right-33 font-bold"
+               >
+                 {totalQuantity}
+               </motion.span>
+             )}
+             <FaShoppingCart className="size-6 text-white" />
+             <span className="font-medium text-white"> Cart</span>
+           </Link>
+          )
+          }
         </div>
 
         {token ? (

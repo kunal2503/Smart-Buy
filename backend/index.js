@@ -29,8 +29,8 @@ app.use("/api/orders",orderRoutes )
 app.use("/api/users/profile", profileRoutes);
 
 // Connect MongoDB
-// "mongodb://localhost:27017/smart_Buy"
-mongoose.connect(process.env.MONGO_URL, {
+// process.env.MONGO_URL
+mongoose.connect("mongodb://localhost:27017/smart_Buy", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })

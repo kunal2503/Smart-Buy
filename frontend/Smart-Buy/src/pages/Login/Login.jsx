@@ -51,7 +51,7 @@ const LoginPage = () =>{
         placeholder="Enter email"
         value={form.email}
         onChange={handleChanges}
-        className="border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className= "w-full px-4 py-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         required
       />
       <PasswordInput
@@ -70,7 +70,10 @@ const LoginPage = () =>{
         Login
       </button>
     </form>
-    <div className="flex items-center justify-center gap-1 mt-4 text-sm">
+    <div className="flex items-center justify-center gap-2 mt-4 text-sm">
+      <a href="/reset-password" className="text-blue-500 hover:text-blue-600 font-medium">Forget password</a>
+    </div>
+    <div className="flex items-center justify-center gap-1 mt-2 text-sm">
       <span>Don’t have an account?</span>
       <button
         onClick={() => navigate('/signup')}

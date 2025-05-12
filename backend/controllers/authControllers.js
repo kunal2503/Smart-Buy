@@ -115,7 +115,9 @@ const forgotPassword = async (req, res) => {
 
 // POST /reset-password/:token
 const resetPassword = async (req, res) => {
-  const { token } = req.params;
+  const { email } = req.body;
+  console.log(req.body);
+
   const { newPassword, confirmPassword } = req.body;
 
   if (newPassword !== confirmPassword) {
@@ -123,10 +125,7 @@ const resetPassword = async (req, res) => {
   }
 
   try {
-    const user = await User.findOne({
-      resetPasswordToken: token,
-      resetPasswordExpires: { $gt: Date.now() },
-    });
+    const user = await User.findOne({email});
 
     if (!user) {
       return res.status(400).json({ message: 'Invalid or expired password reset token' });
@@ -136,9 +135,7 @@ const resetPassword = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(newPassword, salt);
 
-    // Clear reset token fields
-    user.resetPasswordToken = undefined;
-    user.resetPasswordExpires = undefined;
+
 
     await user.save();
 

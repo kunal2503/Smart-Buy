@@ -46,7 +46,7 @@ function App() {
           <Route path="/My-Orders" element={<MyOrders />} />
           <Route path="/Change-password" element={<ForgetPassword />} />
           <Route path="/forgot-password" element={<ForgotPasswordRequest />} />
-          <Route path="/reset-password/:token" element={<ResetPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/profile-info" element={<ProfileInfo />} />
           <Route path="/chat-With-us" element={<ChatBot />} />
 

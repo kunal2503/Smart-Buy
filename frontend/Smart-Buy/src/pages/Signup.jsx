@@ -54,7 +54,7 @@ const Signup = () => {
           value={form.name}
           onChange={handleChanges}
           className="border border-gray-300 outline-none rounded-md p-3 focus:border-blue-500"
-          required
+          
         />
         <input
           type="email"

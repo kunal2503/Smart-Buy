@@ -9,6 +9,7 @@ const orderRoutes = require("./routes/orderRoutes");
 const profileRoutes = require("./routes/profileRoutes");
 const { default: orderModel } = require('./models/orderModel');
 const morgan = require("morgan");
+const paymentRoutes = require("./routes/paymentRoutes");
 
 
 
@@ -28,6 +29,7 @@ app.use("/api/cart", cartRoutes);
 app.use("/api/products", productRoutes)
 app.use("/api/orders",orderRoutes )
 app.use("/api/users/profile", profileRoutes);
+app.use("/api/payment",paymentRoutes);
 
 app.use((err, req, res, next) => {
     console.error(err.stack);

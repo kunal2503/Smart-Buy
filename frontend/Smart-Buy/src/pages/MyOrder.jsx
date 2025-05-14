@@ -62,35 +62,43 @@ const MyOrder = () => {
             </tr>
           </thead>
           <tbody>
-            { console.log(orders)}
-            {orders.map((order) =>
-              order.cartItems.map((item) => (
-                <tr key={item._id} className="hover:bg-gray-100">
-                  <td className="border px-4 py-2">
-                    <Link
-                      to={`/product/${item.productId._id}`}
-                      className="text-blue-500 hover:underline"
-                    >
-                      {item.productId.name}
+  {orders.map((order) =>
+    order?.cartItems?.map((item) => (
+      <tr key={item?._id || Math.random()} className="hover:bg-gray-100">
+        <td className="border px-4 py-2">
+          {item?.productId ? (
+            <Link
+              to={`/product/${item?.productId?._id}`}
+              className="text-blue-500 hover:underline"
+            >
+              {item?.productId?.name || "Unnamed Product"}
+            </Link>
+          ) : (
+            <span className="text-gray-400">Product Not Found</span>
+          )}
+        </td>
+        <td className="border px-4 py-2">{item?.quantity ?? "N/A"}</td>
+        <td className="border px-4 py-2">{order?._id ?? "N/A"}</td>
+        <td className="border px-4 py-2">
+          ₹{item?.price && item?.quantity ? item.price * item.quantity : "N/A"}
+        </td>
+        <td className="border px-4 py-2">{item?.status ?? "Pending"}</td>
+        <td className="border px-4 py-2">
+          <Link
+            to={`/order-Details`}
+            state={order}
+            className="text-blue-500 hover:underline"
+          >
+            See in Details
+          </Link>
+        </td>
+      </tr>
+    ))
+  )}
+</tbody>
 
-                    </Link>
-                  </td>
-                  <td className="border px-4 py-2">{item.quantity}</td>
-                  <td className="border px-4 py-2">{order._id}</td>
-                  <td className="border px-4 py-2">{item.price}</td>
-                  <td className="border px-4 py-2">{item.status}</td>
-                  <Link  to={`/order-Details`}
-                      className="text-blue-500 hover:underline"
-                  >
-                  <td className="border px-4 py-2">See in Details</td>
-                  </Link>
-                </tr>
-              ))
-            )}
-          </tbody>
         </table>
       )}
-       
     </div>
   );
 };

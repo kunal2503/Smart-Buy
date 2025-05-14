@@ -20,6 +20,7 @@ const orderSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Product"
       },
+      imageUrl:String,
       name: String,
       quantity: Number,
       price: Number,
@@ -40,6 +41,11 @@ const orderSchema = new mongoose.Schema({
   isPaid: {
     type: Boolean,
     default: false,
+  },
+  razorpay: {
+    orderId: String,
+    paymentId: String,
+    signature: String,
   },
   paidAt: Date,
 }, { timestamps: true });

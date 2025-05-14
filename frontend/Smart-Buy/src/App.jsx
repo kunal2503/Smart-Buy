@@ -50,7 +50,7 @@ function App() {
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/profile-info" element={<ProfileInfo />} />
           <Route path="/chat-With-us" element={<ChatBot />} />
-          <Route path="/chat-With-us" element={<OrderDetails />} />
+          <Route path="/order-details" element={<OrderDetails />} />
 
         </Routes>
         <Footer/>
